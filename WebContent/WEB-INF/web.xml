@@ -191,6 +191,14 @@
     <servlet-name>table</servlet-name>
     <url-pattern>/Table</url-pattern>
   </servlet-mapping>
+  <servlet>  
+    <servlet-name>CodeService</servlet-name>  
+    <servlet-class>servlet.CodeServlet</servlet-class>  
+  </servlet>  
+  <servlet-mapping>  
+    <servlet-name>CodeService</servlet-name>  
+    <url-pattern>/code.jspx</url-pattern>  
+  </servlet-mapping>  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
