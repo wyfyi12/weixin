@@ -3,21 +3,19 @@ package util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import dao.localdao;
+import dao.paylogdao;
 
 public class dealdata {
 	public static String getmonthmoney(String time) throws Exception{
 		String money="";
 		double summoney=0;
-		localdao.getConnection();
-		ArrayList<HashMap<String, String>> paylog=localdao.querypaylogbytime(time);
+		ArrayList<HashMap<String, String>> paylog=paylogdao.querypaylogbytime(time);
 		for(int i=0;i<paylog.size();i++){
 			HashMap<String, String> payinfo=paylog.get(i);
 			double paymoney=Double.parseDouble(payinfo.get("mnum"));
 			summoney=summoney+paymoney;
 		}
 		money=summoney+"";
-		localdao.conn.close();
 		return money;
 	} 
 	

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import dao.localdao;
+import dao.paylogdao;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import util.wx;
@@ -42,11 +42,10 @@ public class payloglist extends HttpServlet{
 		}catch(Exception e){
 			userid=(String)session.getAttribute("userid");
 		}
-		localdao.getConnection();
 		ArrayList<HashMap<String, String>> loglist=new ArrayList<>();
 		JSONArray logja=new JSONArray();
 		try {
-			 loglist=localdao.querypaylogbyuserid(userid);
+			 loglist=paylogdao.querypaylogbyuserid(userid);
 			 for(int i=0;i<loglist.size();i++){
 				 HashMap<String, String> loginfo=loglist.get(i);
 				 JSONObject logjob=new JSONObject();
@@ -62,7 +61,6 @@ public class payloglist extends HttpServlet{
 			 JSONObject jobupl=new JSONObject();
 				jobupl.element("paylog", logja);
 				req.setAttribute("paylog", jobupl.toString());
-				localdao.conn.close();
 				req.getRequestDispatcher("/paylog.jsp?userid="+userid).forward(req,resp);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

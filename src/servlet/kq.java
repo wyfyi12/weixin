@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.kqdao;
 import dao.localdao;
 import util.compare;
 
@@ -47,7 +47,6 @@ public class kq extends HttpServlet{
     	String dktime=date+" "+time;
     	String distance=request.getParameter("distance");
     	String DeviceId=request.getParameter("DeviceId");
-    	localdao.getConnection();
     	HashMap<String, String> usermap = new HashMap<>();
 		usermap.put("alias", userid);
 		usermap.put("distance", distance);
@@ -58,15 +57,14 @@ public class kq extends HttpServlet{
 		int rs=0;
 		ArrayList<HashMap<String, String>> kq;
 		try {
-			kq = localdao.querykq();
+			kq = kqdao.querykq();
 			String kqtime=kq.get(0).get("time");
 			kqtime=kqdate+" "+kqtime;
 			compare cp=new compare();
 			String status=cp.comparetime(dktime, kqtime);
 			usermap.put("status", status);
 			 rs=localdao.insertuser(usermap);
-			 localdao.conn.close();
-		} catch (SQLException e1) {
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

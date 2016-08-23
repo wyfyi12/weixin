@@ -1,4 +1,4 @@
-<%@page import="dao.localdao"%>
+<%@page import="dao.devicedao"%>
 <%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -14,16 +14,14 @@
 	String date = request.getParameter("date");
 	String DeviceId = request.getParameter("DeviceId");
 	String status = request.getParameter("status");
-	localdao.getConnection();
 	HashMap<String, String> devinfo=new HashMap<String, String>();
 	String devname="";
-	devinfo = localdao.querydevById(DeviceId);
+	devinfo = devicedao.querydevById(DeviceId);
 	if(devinfo.size()==0){
 		 devname="未登记设备";
 	 }else{
 		 devname = devinfo.get("devname"); 
 	 }
-	localdao.conn.close();
 	String distance = request.getParameter("distance");
 	String url = request.getScheme() + "://" + request.getServerName() + request.getRequestURI() + "?"
 			+ request.getQueryString();

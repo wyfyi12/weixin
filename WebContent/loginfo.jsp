@@ -20,6 +20,7 @@
     String mnum=request.getParameter("mnum");
     double money=Double.parseDouble(mnum)*0.01;
     String url = request.getScheme()+"://"+ request.getServerName()+request.getRequestURI()+"?"+request.getQueryString();
+    System.out.print(url);
     String timestamp=wx.getdate();
     getsig gs=new getsig();  
     String signature=gs.getSignature(ticket, timestamp, "Wm3WZYTPz0wzccnW", url);

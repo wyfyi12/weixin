@@ -1,6 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dao.localdao"%>
+<%@page import="dao.devicedao"%>
 <%@page import="util.wx"%>
 <%@page import="net.sf.json.JSONObject"%>
 <%@page import="net.sf.json.JSONArray"%>
@@ -8,12 +8,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-localdao.getConnection();
 int xs=1;
 ArrayList<HashMap<String, String>> dl=new ArrayList<HashMap<String, String>>();
 try{
- dl=localdao.queryalldev();
- System.out.print(dl);
+ dl=devicedao.queryalldev();
  xs=0;
 }catch(Exception e){
 	e.printStackTrace();

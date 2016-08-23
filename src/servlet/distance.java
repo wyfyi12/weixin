@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,21 +71,19 @@ public class distance extends HttpServlet {
 			usermap.put("distance", distance);
 			usermap.put("time", time);
 			usermap.put("DeviceId", DeviceId);
-			localdao.getConnection();
 			try {
 				double dis = 0;
 				String diso = usermap.get("distance");
 				dis = Double.parseDouble(diso);
 				if (dis < 5) {
 					localdao.insertuser(usermap);
-					localdao.conn.close();
 					resp.sendRedirect("yyy.jsp?userid=" + opid + "&distance=" + distance + "&time=" + time
 							+ "&DeviceId=" + DeviceId);
 				} else {
 					resp.sendRedirect("yyy2.jsp?userid=" + opid + "&distance=" + distance + "&time=" + time + "&DeviceId="
 							+ DeviceId);
 				}
-			} catch (SQLException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

@@ -1,4 +1,4 @@
-<%@page import="dao.localdao"%>
+<%@page import="dao.kqdao"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="servlet.kq"%>
@@ -21,12 +21,11 @@
     String timestamp=wx.getdate();
     getsig gs=new getsig();  
     String signature=gs.getSignature(ticket, timestamp, "Wm3WZYTPz0wzccnW", url);
-    String date=gettime.gettime();
+    String date=gettime.getday();
     String time=gettime.getnowtime();
     String userint=wx.getUserInfo(access, userid);
 	String name=wx.getJSONObjectfromString(userint).getString("name");
-	localdao.getConnection();
-	ArrayList<HashMap<String,String>> kq=localdao.querykq();
+	ArrayList<HashMap<String,String>> kq=kqdao.querykq();
 	String jd=kq.get(0).get("jd");
 	double bzjd=Double.parseDouble(jd);
 	String wd=kq.get(0).get("wd");
@@ -36,7 +35,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link rel="stylesheet" href="jquery-weui-build/dist/lib/weui.min.css">

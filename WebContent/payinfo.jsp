@@ -16,7 +16,7 @@
     text=new String(text.getBytes("ISO-8859-1"),"UTF-8");
     String mnum=request.getParameter("mnum");
     double money=Double.parseDouble(mnum)*0.01;
-    String now=gettime.gettime();
+    String now=gettime.getday();
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     Date bdate = df.parse(date);
     Date ndate = df.parse(now);

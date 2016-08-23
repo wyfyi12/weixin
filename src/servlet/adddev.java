@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.localdao;
+import dao.devicedao;
 
 public class adddev extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,6 @@ public class adddev extends HttpServlet{
     	String userid=request.getParameter("userid");
     	String devid=request.getParameter("devid");
     	String devname=request.getParameter("devname");
-    	localdao.getConnection();
     	HashMap<String, String> dev=new HashMap<>();
 		try {
 			Date date=new Date();
@@ -38,7 +37,7 @@ public class adddev extends HttpServlet{
 		dev.put("devid",devid);
 		dev.put("devname",devname);
     	try {
-			String rs=localdao.insertdev(dev);
+			String rs=devicedao.insertdev(dev);
 			rs = java.net.URLEncoder.encode(rs,"utf-8");
 			response.sendRedirect("rs.jsp?rs="+rs);
 		} catch (SQLException e) {

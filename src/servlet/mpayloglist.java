@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.localdao;
+import dao.paylogdao;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -20,12 +20,10 @@ public class mpayloglist extends HttpServlet{
 	@Override
 	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("111");
-		localdao.getConnection();
 		ArrayList<HashMap<String, String>> loglist=new ArrayList<>();
 		JSONArray logja=new JSONArray();
 		try {
-			 loglist=localdao.queryallpaylog();
+			 loglist=paylogdao.queryallpaylog();
 			 for(int i=0;i<loglist.size();i++){
 				 HashMap<String, String> loginfo=loglist.get(i);
 				 JSONObject logjob=new JSONObject();
@@ -41,7 +39,6 @@ public class mpayloglist extends HttpServlet{
 			 JSONObject jobupl=new JSONObject();
 				jobupl.element("paylog", logja);
 				req.setAttribute("paylog", jobupl.toString());
-				localdao.conn.close();
 				req.getRequestDispatcher("/paylog.jsp?userid=0").forward(req,resp);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

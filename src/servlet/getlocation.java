@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.localdao;
+import dao.kqdao;
 
 
 public class getlocation extends HttpServlet{
@@ -23,20 +23,18 @@ public class getlocation extends HttpServlet{
 		String jd=req.getParameter("jd");
 		String wd=req.getParameter("wd");
 		String time=req.getParameter("time");
-		localdao.getConnection();
 		HashMap<String, String> kq=new HashMap<>();
 		kq.put("jd", jd);
 		kq.put("wd", wd);
 		kq.put("time", time);
 		int rs=0;
 		try {
-			ArrayList<HashMap<String, String>> kqinfo=localdao.querykq();
+			ArrayList<HashMap<String, String>> kqinfo=kqdao.querykq();
 			if(kqinfo.get(0).size()>0){
-				rs=localdao.updatekq(kq);
+				rs=kqdao.updatekq(kq);
 			}else{
-			 rs=localdao.insertkq(kq);
+			 rs=kqdao.insertkq(kq);
 			 }
-			localdao.conn.close();
 			resp.sendRedirect("rs.jsp?rs="+rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

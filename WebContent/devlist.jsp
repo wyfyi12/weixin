@@ -1,6 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dao.localdao"%>
+<%@page import="dao.devicedao"%>
 <%@page import="util.wx"%>
 <%@page import="net.sf.json.JSONObject"%>
 <%@page import="net.sf.json.JSONArray"%>
@@ -20,18 +20,15 @@ try{
 }catch(Exception e){
 	userid=(String)session.getAttribute("userid");
 }
-
-localdao.getConnection();
 int xs=1;
 ArrayList<HashMap<String, String>> dl=new ArrayList<HashMap<String, String>>();
 try{
- dl=localdao.querydevlogbyuid(userid);
+ dl=devicedao.querydevlogbyuid(userid);
  xs=0;
 }catch(Exception e){
 	e.printStackTrace();
 	xs=1;
 }
-
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

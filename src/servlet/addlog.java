@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.localdao;
+import dao.addpaydao;
+import dao.paylogdao;
 
 public class addlog extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -21,10 +22,9 @@ public class addlog extends HttpServlet{
         // TODO 消息的接收、处理、响应
     	String no=request.getParameter("no");
     	String userid=request.getParameter("userid");
-    	localdao.getConnection();
     	HashMap<String, String> pay=new HashMap<>();
 		try {
-			pay = localdao.queryplByno(no);
+			pay = addpaydao.queryplByno(no);
 			Date date=new Date();
 			DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String time=format.format(date);
@@ -36,7 +36,7 @@ public class addlog extends HttpServlet{
     	pay.put("userlist", userid);
     	pay.put("no",no);
     	try {
-			String rs=localdao.insertpaylog(pay);
+			String rs=paylogdao.insertpaylog(pay);
 			response.sendRedirect("rs.jsp?rs="+rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

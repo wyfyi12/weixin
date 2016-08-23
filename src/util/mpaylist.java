@@ -7,17 +7,16 @@ import java.util.HashMap;
 
 import javax.servlet.ServletException;
 
-import dao.localdao;
+import dao.addpaydao;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class mpaylist {
 	public static JSONArray get() throws ServletException, IOException {
-	localdao.getConnection();
 	
 	JSONArray payja=new JSONArray();
 	try {
-		ArrayList<HashMap<String, String>> paylist=localdao.queryallpaylist();
+		ArrayList<HashMap<String, String>> paylist=addpaydao.queryallpaylist();
 		for(int i=0;i<paylist.size();i++){
 			HashMap<String, String> payinfo=paylist.get(i);
 			JSONObject payjob=new JSONObject();

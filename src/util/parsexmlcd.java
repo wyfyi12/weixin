@@ -2,7 +2,6 @@ package util;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.*;
 
@@ -15,8 +14,10 @@ import org.xml.sax.InputSource;
 public class parsexmlcd {
 	 @SuppressWarnings("unchecked")
 	    public  static Object[] parseXmlToList2(String xml){   
-	    	List<Map> argMapList = new ArrayList<Map>();
-	    	Map retMap = new HashMap();
+	    	@SuppressWarnings("rawtypes")
+			List<Map> argMapList = new ArrayList<Map>();
+	    	@SuppressWarnings("rawtypes")
+			Map retMap = new HashMap();
 	    	try {
 	    	StringReader read = new StringReader(xml);
 	    	// 创建新的输入源SAX 解析器将使用 InputSource 对象来确定如何读取 XML 输入
@@ -48,13 +49,16 @@ public class parsexmlcd {
 		         SAXBuilder builder = new SAXBuilder();
 		         Document doc = builder.build(in);
 		         Element root = doc.getRootElement();
-		        List list = root.getChildren();
-		       Iterator it = list.iterator();
+		        @SuppressWarnings("rawtypes")
+				List list = root.getChildren();
+		       @SuppressWarnings("rawtypes")
+			Iterator it = list.iterator();
 		        while(it.hasNext()) {
 		            Element e = (Element) it.next();
 		            String k = e.getName();
 		            String v = "";
-		             List children = e.getChildren();
+		             @SuppressWarnings("rawtypes")
+					List children = e.getChildren();
 		            if(children.isEmpty()) {
 		               v = e.getTextNormalize();
 		             } else {
@@ -76,15 +80,17 @@ public class parsexmlcd {
 		       * @param children
 		       * @return String
 		      */
-		      public static String getChildrenText(List children) {
+		      public static String getChildrenText(@SuppressWarnings("rawtypes") List children) {
 		          StringBuffer sb = new StringBuffer();
 		          if(!children.isEmpty()) {
-		              Iterator it = children.iterator();
+		              @SuppressWarnings("rawtypes")
+					Iterator it = children.iterator();
 		             while(it.hasNext()) {
 		                 Element e = (Element) it.next();
 		                 String name = e.getName();
 		                 String value = e.getTextNormalize();
-		                 List list = e.getChildren();
+		                 @SuppressWarnings("rawtypes")
+						List list = e.getChildren();
 		                 sb.append("<" + name + ">");
 		                 if(!list.isEmpty()) {
 		                     sb.append(getChildrenText(list));

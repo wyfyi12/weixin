@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import dao.localdao;
+import dao.kqdao;
+import dao.ticketdao;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -30,9 +31,7 @@ public class wx {
 
 	public ArrayList<HashMap<String, String>> getkq() throws Exception {
 		ArrayList<HashMap<String, String>> kq = new ArrayList<>();
-		localdao.getConnection();
-		kq = localdao.querykq();
-		localdao.conn.close();
+		kq = kqdao.querykq();
 		return kq;
 	}
 
@@ -173,11 +172,10 @@ public class wx {
 	}
 	public String getticket(String access) throws Exception {
 		wx wx = new wx();
-		localdao.getConnection();
 		String jsapi_ticket=""; 
 		String userInfo="";
 		double result=0.00;
-		HashMap<String, String> ticket=localdao.queryticketbyname("jsapi_ticket");
+		HashMap<String, String> ticket=ticketdao.queryticketbyname("jsapi_ticket");
 		String time=ticket.get("time");
 		String now=gettime.getnowdatetime();
 		if(time!=null){
@@ -186,12 +184,10 @@ public class wx {
 			result=7500000;
 		}
 		if(result<7200000){
-			System.out.println(1);
 			userInfo=ticket.get("keyinfo");
 			JSONObject job = wx.getJSONObjectfromString(userInfo);
 			jsapi_ticket = job.getString("ticket");
 		}else{
-			System.out.println(2);
 		String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=" + access;
 		HttpURLConnection conn = getConnectiong(url);
 		InputStream in = conn.getInputStream();
@@ -204,16 +200,14 @@ public class wx {
 		newticket.put("name", "jsapi_ticket");
 		newticket.put("keyinfo", userInfo);
 		newticket.put("time", now);
-	    localdao.insertticket(newticket);
-		localdao.conn.close();}
-		System.out.println(jsapi_ticket);
+	    ticketdao.insertticket(newticket);
+		}
 		return jsapi_ticket ;
 	}
 	public String getgid(String access) throws Exception {
-		localdao.getConnection();
 		String userInfo="";
 		double result=0.00;
-		HashMap<String, String> ticket=localdao.queryticketbyname("group_ticket");
+		HashMap<String, String> ticket=ticketdao.queryticketbyname("group_ticket");
 		String time=ticket.get("time");
 		String now=gettime.getnowdatetime();
 		if(time!=null){
@@ -234,8 +228,8 @@ public class wx {
 		newticket.put("name", "group_ticket");
 		newticket.put("keyinfo", userInfo);
 		newticket.put("time", now);
-	    localdao.insertticket(newticket);
-		localdao.conn.close();}
+	    ticketdao.insertticket(newticket);
+		}
 		return userInfo;
 	}
 

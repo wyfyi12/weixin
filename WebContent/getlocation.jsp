@@ -22,7 +22,6 @@ var point =new BMap.Point(<%=jd%>, <%=wd%>);
 var geoc = new BMap.Geocoder();
 geoc.getLocation(point, function(rs){
 	var addComp = rs.addressComponents;
-	//alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
 	 document.getElementById("ss").innerHTML=addComp.province;
 	 document.getElementById("cs").innerHTML=addComp.city;
 	 document.getElementById("dd").innerHTML=addComp.district+addComp.street+addComp.streetNumber;

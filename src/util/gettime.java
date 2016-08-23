@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class gettime {
-	public static String gettime(){
+	public static String getday(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		String time=df.format(new Date());
 		return time;

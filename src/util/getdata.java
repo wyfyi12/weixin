@@ -14,7 +14,6 @@ public class getdata {
 	static String path = getdata.class.getResource("/").getPath();
 	static String websiteURL = (path.replace("/build/classes", "").replace("%20"," ").replace("classes/", "") + "wx.properties").replaceFirst("/", "");
 	public static void getconn() throws Exception{
-		 System.out.println(websiteURL);
     	 InputStream ip = new FileInputStream(websiteURL);
  		 prop.load(ip);
  		 ip.close();

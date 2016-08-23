@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     <%String ticket=request.getParameter("ticket"); 
     String url="http%3a%2f%2fweixin.njnantu.com%3a8080%2fyyY%3fticket%3d"+ticket;
-    System.out.print(url);
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

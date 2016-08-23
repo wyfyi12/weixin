@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.localdao;
+import dao.addpaydao;
 import util.addporder;
 import util.getip;
 
@@ -39,10 +39,9 @@ public class paymoney extends HttpServlet{
 	    	String mnum=request.getParameter("mnum");
 	    	String no=request.getParameter("no");
 	    	String userid=request.getParameter("userid");
-	    	localdao.getConnection();
 	    	HashMap<String, String> pay=new HashMap<>();
 			try {
-				pay = localdao.queryplByno(no);
+				pay = addpaydao.queryplByno(no);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

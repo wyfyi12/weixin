@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.localdao;
+import dao.addpaydao;
 
 public class addpay extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -45,9 +45,8 @@ public class addpay extends HttpServlet{
 			job.put("userlist", userlist);
 			job.put("text", text);
 			job.put("time", time);
-			localdao.getConnection();
 			try {
-				String rs=localdao.insertaddpay(job);
+				String rs=addpaydao.insertaddpay(job);
 				rs = java.net.URLEncoder.encode(rs,"utf-8");
 				String url="rs.jsp?rs="+rs;
 			response.sendRedirect(url);

@@ -40,7 +40,6 @@ public class kqlog extends HttpServlet{
 			}catch(Exception e){
 				userid=(String)session.getAttribute("userid");
 			}
-			localdao.getConnection();
 			JSONArray ja=new JSONArray();
 			try {
 				ArrayList<HashMap<String, String>> userlog=localdao.queryById(userid);

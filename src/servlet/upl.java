@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import dao.localdao;
+import dao.addpaydao;
+import dao.paylogdao;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import util.wx;
@@ -42,8 +41,7 @@ public class upl extends HttpServlet{
 		String userid=job.getString("UserId");
 		try {
 		JSONArray payja=new JSONArray();
-			localdao.getConnection();
-			ArrayList<HashMap<String, String>> upl=localdao.queryallupl(userid);
+			ArrayList<HashMap<String, String>> upl=addpaydao.queryallupl(userid);
 			for(int i=0;i<upl.size();i++){
 				HashMap<String, String> payinfo=upl.get(i);
 				JSONObject payjob=new JSONObject();
@@ -55,7 +53,7 @@ public class upl extends HttpServlet{
 					payjob.element(key, value);
 				}
 				int no=Integer.parseInt(payjob.getString("no"));
-				String userlist=localdao.querypaylog(no);
+				String userlist=paylogdao.querypaylog(no);
 				if(userlist.contains(userid)){
 				}else{
 				payja.add(payjob);
@@ -64,9 +62,8 @@ public class upl extends HttpServlet{
 			JSONObject jobupl=new JSONObject();
 			jobupl.element("upl", payja);
 			req.setAttribute("upl", jobupl.toString());
-			localdao.conn.close();
 			req.getRequestDispatcher("/upaylist.jsp?userid="+userid).forward(req,resp);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			req.setAttribute("upl", "");
 			req.getRequestDispatcher("/upaylist.jsp?userid="+userid).forward(req,resp);
