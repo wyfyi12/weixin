@@ -22,6 +22,10 @@ public class getdata {
 		String 	wxid = prop.getProperty("wxid");
 		return wxid;
 	}
+	public static String getdomain(){
+		String 	domain = prop.getProperty("domain");
+		return domain;
+	}
 	public String getmch_id(){
 		String 	wxid = prop.getProperty("mch_id");
 		return wxid;

@@ -20,7 +20,6 @@
     String mnum=request.getParameter("mnum");
     double money=Double.parseDouble(mnum)*0.01;
     String url = request.getScheme()+"://"+ request.getServerName()+request.getRequestURI()+"?"+request.getQueryString();
-    System.out.print(url);
     String timestamp=wx.getdate();
     getsig gs=new getsig();  
     String signature=gs.getSignature(ticket, timestamp, "Wm3WZYTPz0wzccnW", url);
@@ -84,7 +83,7 @@ wx.ready(function(){
       <p>缴费金额</p>
     </div>
     <div class="weui_cell_ft">
-      <%=money %>
+      <%=money %>元
     </div>
   </div>
   <div class="weui_cell">

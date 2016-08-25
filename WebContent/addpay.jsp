@@ -1,3 +1,4 @@
+<%@page import="util.getdata"%>
 <%@page import="net.sf.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,7 +8,9 @@
     wx wx=new wx();
     String access=wx.getAcceptKey();
     String ticket=wx.getticket(access);
-    String url="http://weixin.njnantu.com:8080/addpay.jsp";
+    getdata.getconn();
+    String domain=getdata.getdomain();
+    String url="http://"+domain+"/addpay.jsp";
     String timestamp=wx.getdate();
     String gip=wx.getgid(access);
     JSONObject gjob=wx.getJSONObjectfromString(gip);

@@ -1,3 +1,4 @@
+<%@page import="util.getdata"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import="net.sf.json.JSONObject"%>
@@ -9,7 +10,11 @@
     wx wx=new wx();
     String access=wx.getAcceptKey();
     String ticket=wx.getticket(access);
-    String url="http://weixin.njnantu.com:8080/rs.jsp?rs="+java.net.URLEncoder.encode(rs,"utf-8");
+    getdata.getconn();
+    getdata gd=new getdata();
+    String domain=getdata.getdomain();
+    String wxid=gd.getwxid();
+    String url="http://"+domain+"/rs.jsp?rs="+java.net.URLEncoder.encode(rs,"utf-8");
     String timestamp=wx.getdate();
     getsig gs=new getsig();  
     String signature=gs.getSignature(ticket, timestamp, "Wm3WZYTPz0wzccnW", url);
@@ -28,7 +33,7 @@
 var timestamp = <%=timestamp%>;
 wx.config({
     debug: false, 
-    appId: 'wx62b4232a976268cb', 
+    appId: '<%=wxid%>', 
     timestamp: timestamp,
     nonceStr: 'Wm3WZYTPz0wzccnW', 
     signature: '<%=signature%>',

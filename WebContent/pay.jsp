@@ -1,3 +1,4 @@
+<%@page import="util.getdata"%>
 <%@page import="java.util.HashMap"%>
 <%@ page import="net.sf.json.JSONObject"%>
 <%@ page import="util.wx"%>
@@ -16,7 +17,11 @@ java.util.TreeMap"%>
 	String ticket = wx.getticket(access);
 	getsig gs = new getsig();
 	String timestamp = wx.getdate();
-	String appId = "wx62b4232a976268cb";
+	getdata.getconn();
+	getdata gd=new getdata();
+	String wxid=gd.getwxid();
+    String domain=getdata.getdomain();
+	String appId = wxid;
 	String nonceStr = "Wm3WZYTPz0wzccnW";
 	String package1 = (String) request.getParameter("pid");
 	package1 = "prepay_id=" + package1;
@@ -28,7 +33,7 @@ java.util.TreeMap"%>
 	data.put("signType", "MD5");
 	String characterEncoding = "UTF-8";
 	String mySign = MD5Util.createSign(characterEncoding, data);
-	String url = "http://weixin.njnantu.com:8080/pay.jsp?pid=" + (String) request.getParameter("pid");
+	String url = "http://"+domain+"/pay.jsp?pid=" + (String) request.getParameter("pid");
 	String signature = gs.getSignature(ticket, timestamp, "Wm3WZYTPz0wzccnW", url);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -50,7 +55,6 @@ function onBridgeReady(){
 		           "paySign" : "<%=mySign%>" //微信签名 
 		       },
 	       function(res){  
-	    	   //alert(res.err_msg);
 	    	   if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 	    		   var url="./addlog?no=<%=no%>&userid=<%=userid%>";
 				window.location.href = url;

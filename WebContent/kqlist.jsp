@@ -1,3 +1,4 @@
+<%@page import="util.getdata"%>
 <%@page import="java.util.Date"%>
 <%@page import="util.kqinfointime"%>
 <%@page import="java.util.HashMap"%>
@@ -27,7 +28,9 @@ try{
 	 xs=1;
 }
 String lastdate=gettime.getLastDay(date, 0, -1);
-String tourl="http://weixin.njnantu.com:8080/kqlist.jsp?m=0&date="+lastdate;
+getdata.getconn();
+String domain=getdata.getdomain();
+String tourl="http://"+domain+"/kqlist.jsp?m=0&date="+lastdate;
 %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
